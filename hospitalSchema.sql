@@ -7,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema hospital
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `hospital` ;
 
 -- -----------------------------------------------------
 -- Schema hospital
@@ -18,7 +19,7 @@ USE `hospital` ;
 -- Table `hospital`.`Department`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital`.`Department` (
-  `DeptID` INT(11) NOT NULL,
+  `DeptID` VARCHAR(45) NOT NULL,
   `Name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`DeptID`))
 ENGINE = InnoDB
@@ -29,7 +30,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `hospital`.`Doctor`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital`.`Doctor` (
-  `DoctorID` INT(11) NOT NULL,
+  `DoctorID` VARCHAR(45) NOT NULL,
   `Name` VARCHAR(45) NOT NULL,
   `Gender` VARCHAR(45) NOT NULL,
   `Specialization` VARCHAR(45) NOT NULL,
@@ -50,7 +51,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `hospital`.`Patient`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital`.`Patient` (
-  `PatientID` INT(11) NOT NULL,
+  `PatientID` VARCHAR(45) NOT NULL,
   `Name` VARCHAR(45) NOT NULL,
   `Gender` VARCHAR(45) NOT NULL,
   `Birth` DATETIME NOT NULL,
@@ -63,7 +64,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `hospital`.`Appointment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital`.`Appointment` (
-  `AppointmentID` INT(11) NOT NULL,
+  `AppointmentID` VARCHAR(45) NOT NULL,
   `Date` DATETIME NOT NULL,
   `Patient_PatientID` INT(11) NOT NULL,
   `Doctor_DoctorID` INT(11) NOT NULL,
@@ -88,7 +89,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `hospital`.`Room`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital`.`Room` (
-  `RoomID` INT(11) NOT NULL,
+  `RoomID` VARCHAR(45) NOT NULL,
   `MaxCapacity` INT(11) NULL DEFAULT NULL,
   `Department_DeptID` INT(11) NOT NULL,
   PRIMARY KEY (`RoomID`),
@@ -106,7 +107,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `hospital`.`Hospitalization`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital`.`Hospitalization` (
-  `HosptID` INT(11) NOT NULL,
+  `HosptID` VARCHAR(45) NOT NULL,
   `AdmissionDate` DATETIME NULL DEFAULT NULL,
   `ReleaseDate` DATETIME NULL DEFAULT NULL,
   `Illness` VARCHAR(45) NOT NULL,
@@ -137,19 +138,37 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `hospital`.`Office`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hospital`.`Office` (
+  `Building` VARCHAR(45) NOT NULL,
+  `Room` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Room`, `Building`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `hospital`.`Staff`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hospital`.`Staff` (
-  `StaffID` INT(11) NOT NULL,
+  `StaffID` VARCHAR(45) NOT NULL,
   `Name` VARCHAR(45) NOT NULL,
-  `JobTitle` VARCHAR(45) NULL DEFAULT NULL,
+  `JobTitle` VARCHAR(45) NOT NULL,
   `Salary` INT(11) NULL DEFAULT NULL,
   `Department_DeptID` INT(11) NOT NULL,
+  `Office_Room` VARCHAR(45) NOT NULL,
+  `Office_Building` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`StaffID`),
   INDEX `fk_Staff_Department1_idx` (`Department_DeptID` ASC),
+  INDEX `fk_Staff_Office1_idx` (`Office_Room` ASC, `Office_Building` ASC),
   CONSTRAINT `fk_Staff_Department1`
     FOREIGN KEY (`Department_DeptID`)
     REFERENCES `hospital`.`Department` (`DeptID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Staff_Office1`
+    FOREIGN KEY (`Office_Room` , `Office_Building`)
+    REFERENCES `hospital`.`Office` (`Room` , `Building`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
