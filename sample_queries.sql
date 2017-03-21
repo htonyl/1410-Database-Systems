@@ -12,6 +12,5 @@ ON Hospitalization.Patient_PatientID=Patient.PatientID;
 
 -- Group all patients by gender, then order by date of birth
 SELECT Name, PatientID as 'Patient ID', Birth as 'Date of Birth', Gender FROM Patient
-ORDER BY Birth
 GROUP BY Gender
 ORDER BY Birth; 
