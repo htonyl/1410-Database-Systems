@@ -161,7 +161,14 @@ DROP TABLE IF EXISTS `hospital`.`Office` ;
 CREATE TABLE IF NOT EXISTS `hospital`.`Office` (
   `Building` VARCHAR(45) NOT NULL,
   `Room` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`Room`, `Building`))
+  `Department_DeptID` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Room`, `Building`),
+  INDEX `fk_Office_Department1_idx` (`Department_DeptID` ASC),
+  CONSTRAINT `fk_Office_Department1`
+    FOREIGN KEY (`Department_DeptID`)
+    REFERENCES `hospital`.`Department` (`DeptID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -177,18 +184,11 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Staff` (
   `Salary` INT(11) NULL DEFAULT NULL,
   `Office_Room` VARCHAR(45) NOT NULL,
   `Office_Building` VARCHAR(45) NOT NULL,
-  `Department_DeptID` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`StaffID`),
   INDEX `fk_Staff_Office1_idx` (`Office_Room` ASC, `Office_Building` ASC),
-  INDEX `fk_Staff_Department1_idx` (`Department_DeptID` ASC),
   CONSTRAINT `fk_Staff_Office1`
     FOREIGN KEY (`Office_Room` , `Office_Building`)
     REFERENCES `hospital`.`Office` (`Room` , `Building`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Staff_Department1`
-    FOREIGN KEY (`Department_DeptID`)
-    REFERENCES `hospital`.`Department` (`DeptID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

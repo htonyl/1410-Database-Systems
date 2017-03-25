@@ -1,12 +1,3 @@
-#department
-INSERT Department VALUES
-('001','Cardiology'),
-('002','Pediatric'),
-('003','Neonatal'),
-('004','Oncology'),
-('005','Orthopaedics');
-
-#doctor
 INSERT Doctor VALUES
 ('d124567','Lauren Holmes','Female','Cardiology','90000','001'),
 ('d138954','Paul Wright','Male','Pediatric','80000','002'),
