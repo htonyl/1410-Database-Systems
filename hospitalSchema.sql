@@ -182,8 +182,8 @@ CREATE TABLE IF NOT EXISTS `hospital`.`Staff` (
   `Name` VARCHAR(45) NOT NULL,
   `JobTitle` VARCHAR(45) NOT NULL,
   `Salary` INT(11) NULL DEFAULT NULL,
-  `Office_Room` VARCHAR(45) NOT NULL,
   `Office_Building` VARCHAR(45) NOT NULL,
+  `Office_Room` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`StaffID`),
   INDEX `fk_Staff_Office1_idx` (`Office_Room` ASC, `Office_Building` ASC),
   CONSTRAINT `fk_Staff_Office1`
