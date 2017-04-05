@@ -5,3 +5,5 @@ SOURCE patient_data_script.sql;
 SOURCE room_data_script.sql;
 SOURCE office_data_script.sql;
 SOURCE staff_data_script.sql;
+SOURCE hospitalization_data_script.sql;
+SOURCE appointment_data_script.sql;
