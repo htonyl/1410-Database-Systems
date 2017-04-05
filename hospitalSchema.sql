@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS `hospital`.`Doctor` ;
 CREATE TABLE IF NOT EXISTS `hospital`.`Doctor` (
   `DoctorID` VARCHAR(45) NOT NULL,
   `Name` VARCHAR(45) NOT NULL,
-  `Gender` VARCHAR(45) NOT NULL,
+  `Gender` ENUM('MALE','Female') NOT NULL,
   `Specialization` VARCHAR(45) NOT NULL,
   `Salary` INT(11) NULL DEFAULT NULL,
   `Department_DeptID` VARCHAR(45) NOT NULL,
@@ -59,7 +59,7 @@ DROP TABLE IF EXISTS `hospital`.`Patient` ;
 CREATE TABLE IF NOT EXISTS `hospital`.`Patient` (
   `PatientID` VARCHAR(45) NOT NULL,
   `Name` VARCHAR(45) NOT NULL,
-  `Gender` VARCHAR(45) NOT NULL,
+  `Gender` ENUM('MALE','Female') NOT NULL,
   `Birth` DATETIME NOT NULL,
   PRIMARY KEY (`PatientID`, `Name`))
 ENGINE = InnoDB
@@ -103,7 +103,7 @@ DROP TABLE IF EXISTS `hospital`.`Room` ;
 CREATE TABLE IF NOT EXISTS `hospital`.`Room` (
   `RoomID` VARCHAR(45) NOT NULL,
   `MaxCapacity` INT(11) NULL DEFAULT NULL,
-  `Department_DeptID` VARCHAR(45) NOT NULL,
+  `Department_DeptID` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`RoomID`),
   INDEX `fk_Room_Department1_idx` (`Department_DeptID` ASC),
   CONSTRAINT `fk_Room_Department1`
