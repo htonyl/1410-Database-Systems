@@ -21,3 +21,9 @@ SELECT Patient.Name, Patient.PatientID as 'Patient ID', Hospitalization.Illness 
 FROM Patient
 INNER JOIN Hospitalization
 ON Hospitalization.Patient_PatientID=Patient.PatientID;
+
+-- Inner join on Department and Office to show all offices linked to a department:
+SELECT Name as 'Department Name', Office.Building as 'Building', Office.Room as 'Office'
+FROM Department
+INNER JOIN Office
+ON DeptID = Office.Department_DeptID;
