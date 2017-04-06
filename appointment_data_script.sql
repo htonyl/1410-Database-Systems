@@ -1,3 +1,4 @@
+USE Hospital;
 INSERT Appointment VALUES
 ('A001',STR_TO_DATE('05/04/2007', '%d/%m/%Y'),'d124567','Lauren Holmes','P005','Jasmine Gomez'),
 ('A002',STR_TO_DATE('01/06/2013', '%d/%m/%Y'),'d162198','Andrew Lowe','P001','Sarah Wu'),

@@ -1,3 +1,4 @@
+USE Hospital;
 INSERT Hospitalization VALUES
 ('H001',STR_TO_DATE('05/04/2005', '%d/%m/%Y'),STR_TO_DATE('10/04/2005', '%d/%m/%Y'),'Pneumonia','d138954','Paul Wright','22A','P002','Joe Rosberg'),
 ('H002',STR_TO_DATE('01/06/2011', '%d/%m/%Y'),STR_TO_DATE('05/06/2011', '%d/%m/%Y'),'Broken Collarbone','d162198','Andrew Lowe','25B','P001','Sarah Wu'),
