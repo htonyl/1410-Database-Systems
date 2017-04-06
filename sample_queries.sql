@@ -14,10 +14,12 @@ ON Hospitalization.Patient_PatientID=Patient.PatientID;
 Select Gender, Count(PatientID) as 'Number of Patients' From Patient Group by Gender;
 
 -- Count number of hospitalizations per room
-Select Room_RoomID as 'Room #', Count(Patient_PatientID) as 'Number of hospitalizations in room' From Hospitalization Group by Room_RoomID;
+Select Room_RoomID as 'Room #', Count(Patient_PatientID) as 'Number of hospitalizations in room' 
+From Hospitalization 
+Group by Room_RoomID;
 
 -- Inner join on Patient and Hospitalization to show all known patient illnesses:
-SELECT Patient.Name, Patient.PatientID as 'Patient ID', Hospitalization.Illness as 'Illness', Year(Hospitalization.ReleaseDate) as 'Year of occurence'
+SELECT Patient.Name, Patient.PatientID as 'Patient ID', Hospitalization.Illness as 'Illness', Year(Hospitalization.ReleaseDate) as 'Year of occurence', Hospitalization.Doctor_Name as "Assigned Doctor"
 FROM Patient
 INNER JOIN Hospitalization
 ON Hospitalization.Patient_PatientID=Patient.PatientID;
@@ -26,4 +28,5 @@ ON Hospitalization.Patient_PatientID=Patient.PatientID;
 SELECT Name as 'Department Name', Office.Building as 'Building', Office.Room as 'Office'
 FROM Department
 INNER JOIN Office
-ON DeptID = Office.Department_DeptID;
+ON DeptID = Office.Department_DeptID
+WHERE Name = 'Pediatric';
