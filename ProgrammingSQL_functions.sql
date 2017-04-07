@@ -1,18 +1,16 @@
 -- Creates function
-CREATE FUNCTION totalPatients
-RETURN number IS 
-   total number(2) := 0;
-BEGIN 
-   SELECT count(*) into total 
-   FROM patients; 
-    
-   RETURN total; 
-END; 
-
--- Calling a Function
-DECLARE 
-   c number(2); 
-BEGIN 
-   c := totalPatients(); 
-   dbms_output.put_line('Total number of patients: ' || c); 
-END; 
+DROP FUNCTION IF EXISTS RemainCapacity;
+DELIMITER //
+CREATE FUNCTION RemainCapacity(rID VARCHAR(45))
+    RETURNS INT
+    BEGIN
+    DECLARE max INT;
+    DECLARE cur INT;
+    SELECT MaxCapacity INTO @max FROM Room
+    WHERE RoomID=rID;
+    SELECT COUNT(*) INTO @cur FROM Hospitalization
+    WHERE Room_RoomID=rID
+    AND CURTIME() BETWEEN AdmissionDate AND  ReleaseDate;
+    RETURN @max - @cur;
+    END; //
+DELIMITER ;
