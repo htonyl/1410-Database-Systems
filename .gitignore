@@ -1,7 +1,6 @@
 .DS_Store
-*.pdf
 *.bak
 *.swp
-*.png
 *.bak
 *.beforefix
+figures/
